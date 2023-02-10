@@ -1,11 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
 html,
 body {
     width: 100%;
     height: 100%;
     margin: 0;
-    background-image: url(../images/panel.png);
+    background-image: url(../images/modern.png);
     background-size: 100% 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Comfortaa', cursive;
 }
+
+#calculator {
+    background-color: black;
+    width: 30vw;
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 5px;
+    border: 1px solid #239E80;
+    gap: 2px;
+}
+
+#output {
+    flex: 3.3;
+    padding: 1px 6px;
+    box-sizing: border-box;
+    border-bottom: 2px dotted #ffed4a;
+    margin-right: 2px;
+}
+
+.line {
+    display: flex;
+    flex: 1;
+    gap: 1px;
+}
+
+.calc-btn {
+    width: 100%;
+    flex: 1;
+    font-size: 36px;
+    background-color: #ffed4a;
+    color: #3d3d3d;
+    font-family: inherit;
+}
+
+.calc-btn:active {
+    color: #4A5CFF;
+}
+
