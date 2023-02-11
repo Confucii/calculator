@@ -1,5 +1,6 @@
 let displayVal = "";
 
+//selecting all relevant elements of DOM
 const calcBtn = document.querySelectorAll(".calc-btn");
 const output = document.querySelector("#output");
 const acBtn = document.querySelector("#ac-btn");
@@ -52,37 +53,49 @@ function operate(x, operator, y) {
     return operationResult;
 }
 
+//reset values for new calculation
 function clear() {
     displayVal = "";
     output.textContent = "";
+    calcList = [];
+    idx = 0;
 }
 
+//adds number to display, also handles some incorrect use cases for 0
 function addNum() {
-    displayVal += this.textContent;
-    output.textContent = displayVal;
+    if (!(this.textContent === "0" && (displayVal.charAt(displayVal.length - 1) === " " || 
+        displayVal === "" || 
+        displayVal.charAt(displayVal.length - 2) === "/"))) {
+        displayVal += this.textContent;
+        output.textContent = displayVal;
+    }
 }
 
+// appends operator to display, as well as stores new values to array of operands and operators
+// remembers the index position of the place where new value will appear
 function addOp() {
     let currLength = displayVal.length;
     if (displayVal.charAt(currLength - 1).match(/[0-9]/) !== null) {
         calcList.push(displayVal.slice(idx));
         calcList.push(this.textContent);
-        console.log(calcList)
         idx = currLength + 3;
         displayVal += ` ${this.textContent} `;
         output.textContent = displayVal;
     }
 }
 
+// iterates through operands and operators array to perform all arithmetic operations it stored
 function solve() {
     if (displayVal.charAt(idx).match(/[0-9]/) !== null) {
         calcList.push(displayVal.slice(idx));
         let opNum = Math.floor(calcList.length / 2);
+
         for(let i = 0; i < opNum; i++) {
             calcList.unshift(operate(parseFloat(calcList.shift()), calcList.shift(), parseFloat(calcList.shift())));
         }
-        displayVal = `${calcList[0]}`;
+
+        displayVal = `${parseFloat(calcList[0].toFixed(3))}`;
         idx = 0;
-        output.textContent = calcList.shift();
+        output.textContent = parseFloat(calcList.shift().toFixed(3));
     }
 }
