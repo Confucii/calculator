@@ -35,14 +35,11 @@ body {
 #output {
     color: white;
     text-align: right;
-    margin-top: auto;
-    font-size: 36px;
-    max-width: 100%;
-    flex: 3.3;
+    font-size: 40px;
+    flex: 1;
     padding: 1px 6px;
-    box-sizing: border-box;
     border-bottom: 2px dotted #ffed4a;
-    margin-right: 2px;
+    margin: auto 2px 0px;
 }
 
 button {
