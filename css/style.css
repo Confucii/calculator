@@ -8,6 +8,7 @@ body {
     background-image: url(../images/modern.png);
     background-size: 100% 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Comfortaa', cursive;
@@ -57,3 +58,14 @@ button:active {
     color: #4A5CFF;
 }
 
+#footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+}
+
+a {
+    color: black;
+}
