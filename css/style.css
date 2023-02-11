@@ -25,7 +25,18 @@ body {
     gap: 2px;
 }
 
+.line {
+    display: flex;
+    flex: 1;
+    gap: 1px;
+}
+
 #output {
+    color: white;
+    text-align: right;
+    margin-top: auto;
+    font-size: 36px;
+    max-width: 100%;
     flex: 3.3;
     padding: 1px 6px;
     box-sizing: border-box;
@@ -33,13 +44,7 @@ body {
     margin-right: 2px;
 }
 
-.line {
-    display: flex;
-    flex: 1;
-    gap: 1px;
-}
-
-.calc-btn {
+button {
     width: 100%;
     flex: 1;
     font-size: 36px;
@@ -48,7 +53,7 @@ body {
     font-family: inherit;
 }
 
-.calc-btn:active {
+button:active {
     color: #4A5CFF;
 }
 
