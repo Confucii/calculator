@@ -69,7 +69,7 @@ function clear() {
 
 //adds number to display, also handles some incorrect use cases for 0
 function addNum() {
-    if (displayVal.charAt(idx) === "0") {
+    if (displayVal.charAt(idx) === "0" && displayVal.charAt(idx + 1) !== ".") {
         displayVal = displayVal.slice(0, idx);
         displayVal += this.textContent;
         output.textContent = displayVal;
