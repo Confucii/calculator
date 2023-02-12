@@ -88,7 +88,7 @@ function addNum() {
         displayVal = displayVal.slice(0, idx);
         displayVal += this.textContent;
         output.textContent = displayVal;
-    } else if (!(this.textContent === "0" && (displayVal.charAt(displayVal.length - 2) === "/"))) {
+    } else {
         displayVal += this.textContent;
         output.textContent = displayVal;
     }
@@ -134,13 +134,20 @@ function solve() {
 
         let opNum = Math.floor(calcList.length / 2);
 
-        for(let i = 0; i < opNum; i++) {
+        for (let i = 0; i < opNum; i++) {
             calcList.unshift(operate(parseFloat(calcList.shift()), calcList.shift(), parseFloat(calcList.shift())));
         }
 
-        displayVal = `${parseFloat(calcList[0].toFixed(3))}`;
         idx = 0;
-        output.textContent = parseFloat(calcList.shift().toFixed(3));
+
+        if (isFinite(calcList[0])) {  
+            displayVal = `${parseFloat(calcList[0].toFixed(3))}`;
+            output.textContent = parseFloat(calcList.shift().toFixed(3));
+        } else {
+            calcList.shift();
+            displayVal = "";
+            output.textContent = "Cannot divide by zero!";
+        }
     }
 }
 
