@@ -8,9 +8,13 @@ const opBtn = document.querySelectorAll(".op-btn");
 const solBtn = document.querySelector("#sol-btn");
 const flBtn = document.querySelector("#fl-btn");
 const delBtn = document.querySelector("#del-btn")
+const buttons = document.querySelectorAll("button")
 
 let calcList = [];
 let idx = 0;
+let keyList = [];
+
+buttons.forEach(button => console.log(button.dataset.key))
 
 delBtn.addEventListener('click', del)
 
@@ -26,6 +30,11 @@ calcBtn.forEach(element => {
 
 opBtn.forEach(element => {
     element.addEventListener('click', addOp);    
+});
+
+document.addEventListener('keydown', (e) => {
+    const key = document.querySelector(`button[data-key="${e.key}"]`);
+    key.classList.add("pressed");
 });
 
 function add(x, y) {
