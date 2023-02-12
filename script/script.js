@@ -34,7 +34,6 @@ opBtn.forEach(element => {
 
 document.addEventListener('keydown', (e) => {
     if (keyList.find(element => element === e.key)) {
-        console.log(e.key);
         const key = document.querySelector(`button[data-key="${e.key}"]`);
         key.dispatchEvent(new Event('click'));
         key.classList.add("pressed");
