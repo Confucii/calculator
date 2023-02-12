@@ -14,7 +14,7 @@ let calcList = [];
 let idx = 0;
 let keyList = [];
 
-buttons.forEach(button => console.log(button.dataset.key))
+buttons.forEach(button => keyList.push(button.dataset.key));
 
 delBtn.addEventListener('click', del)
 
@@ -33,8 +33,17 @@ opBtn.forEach(element => {
 });
 
 document.addEventListener('keydown', (e) => {
-    const key = document.querySelector(`button[data-key="${e.key}"]`);
-    key.classList.add("pressed");
+    if (keyList.find(element => element === e.key)) {
+        console.log(e.key);
+        const key = document.querySelector(`button[data-key="${e.key}"]`);
+        key.classList.add("pressed");
+    }
+});
+
+buttons.forEach(button => {
+    button.addEventListener('transitionend', (e) => {
+        button.classList.remove("pressed");
+    });
 });
 
 function add(x, y) {
