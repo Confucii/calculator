@@ -6,9 +6,15 @@ const output = document.querySelector("#output");
 const acBtn = document.querySelector("#ac-btn");
 const opBtn = document.querySelectorAll(".op-btn");
 const solBtn = document.querySelector("#sol-btn");
+const flBtn = document.querySelector("#fl-btn");
+const delBtn = document.querySelector("#del-btn")
 
 let calcList = [];
 let idx = 0;
+
+delBtn.addEventListener('click', del)
+
+flBtn.addEventListener('click', float);
 
 solBtn.addEventListener('click', solve);
 
@@ -99,3 +105,11 @@ function solve() {
         output.textContent = parseFloat(calcList.shift().toFixed(3));
     }
 }
+
+function float() {
+    if (displayVal.slice(idx).match(/^[0-9]+$/)) {
+        displayVal += this.textContent;
+        output.textContent = displayVal;
+    }
+}
+
