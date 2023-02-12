@@ -69,9 +69,11 @@ function clear() {
 
 //adds number to display, also handles some incorrect use cases for 0
 function addNum() {
-    if (!(this.textContent === "0" && (displayVal.charAt(displayVal.length - 1) === " " || 
-        displayVal === "" || 
-        displayVal.charAt(displayVal.length - 2) === "/"))) {
+    if (displayVal.charAt(idx) === "0") {
+        displayVal = displayVal.slice(0, idx);
+        displayVal += this.textContent;
+        output.textContent = displayVal;
+    } else if (!(this.textContent === "0" && (displayVal.charAt(displayVal.length - 2) === "/"))) {
         displayVal += this.textContent;
         output.textContent = displayVal;
     }
@@ -94,6 +96,27 @@ function addOp() {
 function solve() {
     if (displayVal.charAt(idx).match(/[0-9]/) !== null) {
         calcList.push(displayVal.slice(idx));
+
+        let whileCond = true;
+        while (whileCond) {
+            let mult = calcList.indexOf("*");
+            let div = calcList.indexOf("/");
+
+            if (mult === div) {
+                whileCond = false;
+            } else if (mult === -1) {
+                performMultDiv(div - 1);
+            } else if (div === -1) {
+                performMultDiv(mult - 1);
+            } else {
+                if (mult < div) {
+                    performMultDiv(mult - 1);
+                } else {
+                    performMultDiv(div - 1);
+                }
+            }
+        }
+
         let opNum = Math.floor(calcList.length / 2);
 
         for(let i = 0; i < opNum; i++) {
@@ -106,6 +129,7 @@ function solve() {
     }
 }
 
+//function checks whether the current input is a string of only numbers, if it is then decimal point can be added
 function float() {
     if (displayVal.slice(idx).match(/^[0-9]+$/)) {
         displayVal += this.textContent;
@@ -113,6 +137,9 @@ function float() {
     }
 }
 
+//function checks whether the deleted element is a space (which means that there is an operator before that)
+//then it transforms the string and array to restore the state before the operator was added and move idx
+//to proper place
 function del() {
     if (displayVal.charAt(displayVal.length - 1) === " ") {
         displayVal = displayVal.slice(0, displayVal.length - 3);
@@ -123,4 +150,9 @@ function del() {
         displayVal = displayVal.slice(0, displayVal.length - 1);
         output.textContent = displayVal;
     }
+}
+
+function performMultDiv(idx) {
+    let temp = calcList.splice(idx, 3);
+    calcList.splice(idx, 0, operate(parseFloat(temp[0]), temp[1], parseFloat(temp[2])))
 }
