@@ -113,3 +113,14 @@ function float() {
     }
 }
 
+function del() {
+    if (displayVal.charAt(displayVal.length - 1) === " ") {
+        displayVal = displayVal.slice(0, displayVal.length - 3);
+        output.textContent = displayVal;
+        idx -= 3 + calcList[calcList.length - 2].length;
+        calcList.splice(calcList.length - 2, 2);
+    } else {
+        displayVal = displayVal.slice(0, displayVal.length - 1);
+        output.textContent = displayVal;
+    }
+}
