@@ -152,6 +152,7 @@ function del() {
     }
 }
 
+//delete used operands and operators from list and add the result
 function performMultDiv(idx) {
     let temp = calcList.splice(idx, 3);
     calcList.splice(idx, 0, operate(parseFloat(temp[0]), temp[1], parseFloat(temp[2])))
