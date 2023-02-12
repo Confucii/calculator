@@ -1,5 +1,3 @@
-let displayVal = "";
-
 //selecting all relevant elements of DOM
 const calcBtn = document.querySelectorAll(".calc-btn");
 const output = document.querySelector("#output");
@@ -76,7 +74,6 @@ function operate(x, operator, y) {
 
 //reset values for new calculation
 function clear() {
-    displayVal = "";
     output.textContent = "";
     calcList = [];
     idx = 0;
@@ -84,33 +81,28 @@ function clear() {
 
 //adds number to display, also handles some incorrect use cases for 0
 function addNum() {
-    if (displayVal.charAt(idx) === "0" && displayVal.charAt(idx + 1) !== ".") {
-        displayVal = displayVal.slice(0, idx);
-        displayVal += this.textContent;
-        output.textContent = displayVal;
+    if (output.textContent.charAt(idx) === "0" && output.textContent.charAt(idx + 1) !== ".") {
+        output.textContent = output.textContent.slice(0, idx);
+        output.textContent += this.textContent;
     } else {
-        displayVal += this.textContent;
-        output.textContent = displayVal;
+        output.textContent += this.textContent;
     }
 }
 
 // appends operator to display, as well as stores new values to array of operands and operators
 // remembers the index position of the place where new value will appear
 function addOp() {
-    let currLength = displayVal.length;
-    if (displayVal.charAt(currLength - 1).match(/[0-9]/) !== null) {
-        calcList.push(displayVal.slice(idx));
-        calcList.push(this.textContent);
+    let currLength = output.textContent.length;
+    if (output.textContent.charAt(currLength - 1).match(/[0-9]/) !== null) {
         idx = currLength + 3;
-        displayVal += ` ${this.textContent} `;
-        output.textContent = displayVal;
+        output.textContent += ` ${this.textContent} `;
     }
 }
 
 // iterates through operands and operators array to perform all arithmetic operations it stored
 function solve() {
-    if (displayVal.charAt(idx).match(/[0-9]/) !== null) {
-        calcList.push(displayVal.slice(idx));
+    if (output.textContent.charAt(idx).match(/[0-9]/) !== null) {
+        calcList = output.textContent.split(" ");
 
         let whileCond = true;
         while (whileCond) {
@@ -141,11 +133,9 @@ function solve() {
         idx = 0;
 
         if (isFinite(calcList[0])) {  
-            displayVal = `${parseFloat(calcList[0].toFixed(3))}`;
             output.textContent = parseFloat(calcList.shift().toFixed(3));
         } else {
             calcList.shift();
-            displayVal = "";
             output.textContent = "Cannot divide by zero!";
         }
     }
@@ -153,9 +143,8 @@ function solve() {
 
 //function checks whether the current input is a string of only numbers, if it is then decimal point can be added
 function float() {
-    if (displayVal.slice(idx).match(/^[0-9]+$/)) {
-        displayVal += this.textContent;
-        output.textContent = displayVal;
+    if (output.textContent.slice(idx).match(/^[0-9]+$/)) {
+        output.textContent += this.textContent;
     }
 }
 
@@ -163,14 +152,14 @@ function float() {
 //then it transforms the string and array to restore the state before the operator was added and move idx
 //to proper place
 function del() {
-    if (displayVal.charAt(displayVal.length - 1) === " ") {
-        displayVal = displayVal.slice(0, displayVal.length - 3);
-        output.textContent = displayVal;
-        idx -= 3 + calcList[calcList.length - 2].length;
-        calcList.splice(calcList.length - 2, 2);
+    if (output.textContent.charAt(output.textContent.length - 1) === " ") {
+        output.textContent = output.textContent.slice(0, output.textContent.length - 3);
+        idx -= 4;
+        while(output.textContent.charAt(idx - 1) !== " " && idx !== 0) {
+            idx -= 1;
+        }
     } else {
-        displayVal = displayVal.slice(0, displayVal.length - 1);
-        output.textContent = displayVal;
+        output.textContent = output.textContent.slice(0, output.textContent.length - 1);
     }
 }
 
