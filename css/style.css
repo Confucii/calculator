@@ -16,8 +16,8 @@ body {
 
 #calculator {
     background-color: black;
-    width: 25vw;
-    height: 55vh;
+    width: 95vw;
+    height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -25,6 +25,21 @@ body {
     border: 1px solid #ffed4a;
     gap: 2px;
 }
+
+@media (min-width: 600px){
+    #calculator {
+        background-color: black;
+        width: 25vw;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 5px;
+        border: 1px solid #ffed4a;
+        gap: 2px;
+    }
+} 
+
 
 .line {
     display: flex;
