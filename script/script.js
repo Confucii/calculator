@@ -8,7 +8,11 @@ const flBtn = document.querySelector("#fl-btn");
 const delBtn = document.querySelector("#del-btn")
 const buttons = document.querySelectorAll("button")
 
+//list of operators and operands
 let calcList = [];
+
+//cursor saving the position of the beginning of the newest number in the string 
+//is needed to manipulate zero and float cases
 let idx = 0;
 let keyList = [];
 
@@ -30,6 +34,8 @@ opBtn.forEach(element => {
     element.addEventListener('click', addOp);    
 });
 
+//add listener to keys so that when the key with corresponding data is pushed, it is visually visible and the 
+//corresponding event is dispatched 
 document.addEventListener('keydown', (e) => {
     if (keyList.find(element => element === e.key)) {
         const key = document.querySelector(`button[data-key="${e.key}"]`);
@@ -89,8 +95,9 @@ function addNum() {
     }
 }
 
-// appends operator to display, as well as stores new values to array of operands and operators
+// appends operator to display
 // remembers the index position of the place where new value will appear
+// check whether there is a number to add operator to
 function addOp() {
     let currLength = output.textContent.length;
     if (output.textContent.charAt(currLength - 1).match(/[0-9]/) !== null) {
@@ -99,7 +106,10 @@ function addOp() {
     }
 }
 
-// iterates through operands and operators array to perform all arithmetic operations it stored
+// iterates through operands and operators array to perform all arithmetic operations
+// the arithmetic operations are saved in a list by splitting the display value on spaces
+// first the iterations are performed while there is at least one multiplication or division
+// then the rest of operands are done in successive manner
 function solve() {
     if (output.textContent.charAt(idx).match(/[0-9]/) !== null) {
         calcList = output.textContent.split(" ");
@@ -149,7 +159,7 @@ function float() {
 }
 
 //function checks whether the deleted element is a space (which means that there is an operator before that)
-//then it transforms the string and array to restore the state before the operator was added and move idx
+//then it transforms the string to restore the state before the operator was added and move idx
 //to proper place
 function del() {
     if (output.textContent.charAt(output.textContent.length - 1) === " ") {
